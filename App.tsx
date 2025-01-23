@@ -1,118 +1,69 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import {Text,View,Dimensions, TouchableOpacity, ScrollView,Easing, Animated} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { TextInput } from 'react-native-paper';
+import LinearGradient from 'react-native-linear-gradient';
+import Icon from 'react-native-vector-icons/Fontisto';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+// import { createStackNavigator } from '@react-navigation/stack';
+import Login from './src/Login'; 
+import Home from './src/Home';
+import HotelDetail from './src/HotelDetail';
+import NavBar from './src/NavBar';
+import Explore from './src/Explore';
+import Wishlist from './src/Wishlist';
+import LoginScreen from './src/LoginScreen';
+import EditUserId from './src/EditUserId';
+import SignUp from './src/SignUp';
+import HomeScreen from './src/HomeNavigate';
+import FlightScreen from './src/FlightScreen';
+import HomeNavigate from './src/HomeNavigate';
+import TrainBooking from './src/TrainBooking';
+import OfferScreen from './src/OfferScreen';
+import AnimatedScreen from './src/AnimatedScreen';
+import AnimatedColorChange from './src/AnimatedColorChange';
+import AnimatedTextStyle from './src/AnimatedTextStyle';
+import AnimationImageMove from './src/AnimationImageMove';
+import AnimatedImagesMove from './src/AnimatedImagesMove';
+import FadeAnimation from './src/FadeAnimation';
+import { Layout } from 'react-native-reanimated';
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
+const App=()=>{
+  const Stack=createNativeStackNavigator();
+  
+  return(
+    <NavigationContainer>
+     <Stack.Navigator 
+     screenOptions={{
+      gestureEnabled:true,
+      animation:'slide_from_right', //native slide animation 
+      gestureDirection:'horizontal',  //Swipe gestures for horizontal transitions
+    animationDuration:100 , //duration in milliseconds 
+    }}
+     >
+       <Stack.Screen name='HomeScreen' component={Home} options={{headerShown:false}} />
+       <Stack.Screen  name='SignUpExample'component={SignUp} options={{headerShown:false}}/>
+       <Stack.Screen name='LoginExample' component={Login} options={{headerShown:false}}/>
+     <Stack.Screen name='ExploreScreen' component={Explore} options={{headerShown:false}}/>
+     <Stack.Screen name='WishlistScreen' component={Wishlist} options={{headerShown:false}}/>
+     <Stack.Screen name='FlightNavigateExample' component={FlightScreen}  options={{headerShown:false}}/>
+     <Stack.Screen name={'OfferScreenExample'} component={OfferScreen} options={{headerShown:false}}/>
+     <Stack.Screen  name={'TrainScreen'} component={TrainBooking} options={{headerShown:false}}/>
+     <Stack.Screen name='HotalNavigateExample' component={HomeNavigate}  options={{headerShown:false}}/>
+      <Stack.Screen  name='LoginScreen' component={LoginScreen} options={{headerShown:false}}/>
+     <Stack.Screen name='DetailExample' component={HotelDetail} options={{headerShown:false}}/>
+     <Stack.Screen  name={'EditIdExample'}component={EditUserId} options={{headerShown:false}}/>
+     <Stack.Screen name='AnimatedFadeScreen' component={FadeAnimation} options={{headerShown:false}}/>
+     <Stack.Screen name='AnimatedImagesScreen' component={AnimatedImagesMove} options={{headerShown:false}}/>
+     <Stack.Screen name='AnimatedImageScreen' component={AnimationImageMove} options={{headerShown:false}}/>
+     <Stack.Screen name='AnimatedTextScreen' component={AnimatedTextStyle} options={{headerShown:false}}/>
+      <Stack.Screen name='AnimatedColorScreen' component={AnimatedColorChange} options={{headerShown:false}}/>
+      <Stack.Screen name='AnimatedScreen' component={AnimatedScreen} options={{headerShown:false}}/>
+    <Stack.Screen name='NavBarExample' component={NavBar} options={{headerShown:false}}/>
+    </Stack.Navigator>
+   
+    </NavigationContainer>
   );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
+};
 export default App;
