@@ -8,7 +8,7 @@ const AnimatedTextStyle = () => {
         Animated.loop(
       Animated.timing(animatedValue,{
       toValue:1,
-      duration:5000,
+      duration:5000,  //5 milliseconds
       useNativeDriver:false, //usenative driver doesnot support size related animation 
       })).start();
     },[])

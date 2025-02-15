@@ -1,9 +1,11 @@
 import {Text,View,Dimensions,Linking, TouchableOpacity,ScrollView} from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Checkbox, TextInput } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Fontisto';
 import { useNavigation } from '@react-navigation/native';
+import Wishlist from './Wishlist';
+import EncryptedStorage from 'react-native-encrypted-storage';
 
 const Login=()=>{
     const Navigation=useNavigation();
@@ -15,6 +17,7 @@ const[emailError,setEmailError]=useState(false);
 const[emailPatternError,setEmailPatternError]=useState(false);
 const[hide,setHide]=useState(true);
 const[disabled,setDisabled]=useState(true);
+
 
 const toggleKey=()=>(
   setHide(!hide)
@@ -89,11 +92,19 @@ const NavigateScreen=async()=>{
     console.log('compare data',compareData); 
     if(response.ok)
     {
-      const compare=await response.json();
-      console.log('response',compare);
+
+      const compare=await response.json();  //json code to javascript object convertion 
+      const token=compare.token;
+      console.log('access token', token);
+       await EncryptedStorage.setItem("settoken",token);
       setEmail('');
       setPassword('');
       Navigation.navigate('HomeScreen');
+      //  const session= EncryptedStorage.getItem("settoken");
+      //  console.log('session:=>',session);
+      
+      
+     
     }
     else{
       console.log('error making request ',response.status);
@@ -104,12 +115,16 @@ const NavigateScreen=async()=>{
     }
   }
   else
-  {console.log('null');}
+  {console.log('validation is not true','null');}
 };
 // const asyncNavigate=async(URL)=>{
 //      await Linking.openURL(URL);
 // };
 
+// useEffect(()=>{
+// const session= EncryptedStorage.getItem('settoken');
+// console.log('session:=>',session);
+// },[NavigateScreen]);
 
   return(
     <View style={{flex:1,backgroundColor:'lightgrey'}}>

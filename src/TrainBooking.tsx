@@ -89,32 +89,156 @@ const TrainBooking = () => {
                   {id:'1',
                   class:'Third AC Economy',},
                   ];
-  const renderItem=(item)=>{
-    setSecondDropdown(false);
-    setFirstDropdown(true);
-  return( <View style={{borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',height:height*0.08,width:width-225,backgroundColor:'rgb(240, 240, 240)',elevation:14}}>
-    <TouchableOpacity onPress={()=>dropdownFirst(item)}>
-      <View style={{justifyContent:'space-between',flexDirection:'row',top:'5%'}}>
-       <Text style={{fontSize:18,fontWeight:'700',textAlign:'left',alignSelf:'flex-start',borderWidth:1,borderColor:'transparent',height:height*0.035,width:width-330}}>{item.city}</Text>  
-       <Text style={{fontSize:18,fontWeight:'700',textAlign:'right',alignSelf:'flex-end',borderWidth:1,borderColor:'transparent',height:height*0.035,width:width-330,right:'3%'}}>{item.code}</Text>  
-       </View>
-       <Text style={{fontSize:15.2,justifyContent:'center',alignContent:'center',alignItems:'center',textAlign:'center',borderWidth:1,borderColor:'transparent',height:height*0.035,width:width-227,top:'2%'}}>{item.railway_station}</Text>  
-   </TouchableOpacity>
-   </View>);
-  };
-  const renderSecItem=(item)=>{
-    setFirstDropdown(false);
-    setSecondDropdown(true);
-    return( <View style={{borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',height:height*0.08,width:width-225,backgroundColor:'rgb(240, 240, 240)',elevation:14}}>
-      <TouchableOpacity onPress={()=>dropdownSecond(item)}>
-        <View style={{justifyContent:'space-between',flexDirection:'row',top:'5%'}}>
-         <Text style={{fontSize:18,fontWeight:'700',textAlign:'left',alignSelf:'flex-start',borderWidth:1,borderColor:'transparent',height:height*0.035,width:width-330}}>{item.city}</Text>  
-         <Text style={{fontSize:18,fontWeight:'700',textAlign:'right',alignSelf:'flex-end',borderWidth:1,borderColor:'transparent',height:height*0.035,width:width-330,right:'3%'}}>{item.code}</Text>  
-         </View>
-         <Text style={{fontSize:15.2,justifyContent:'center',alignContent:'center',alignItems:'center',textAlign:'center',borderWidth:1,borderColor:'transparent',height:height*0.035,width:width-227,top:'2%'}}>{item.railway_station}</Text>  
-     </TouchableOpacity>
-     </View>);
-    };
+                 
+   const renderItem = (item) => {
+                    return (
+                      <View
+                        style={{
+                          borderWidth: 0.5,
+                          borderColor: 'rgba(31, 31, 31,0.9)',
+                          height: height * 0.08,
+                          width: width - 225,
+                          backgroundColor: 'rgb(240, 240, 240)',
+                          elevation: 14,
+                        }}
+                      >
+                        <TouchableOpacity
+                          onPress={() => {
+                            // Move state updates here
+                            setSecondDropdown(false);
+                            setFirstDropdown(true);
+                            dropdownFirst(item); // Assuming this is a function
+                          }}
+                        >
+                          <View
+                            style={{
+                              justifyContent: 'space-between',
+                              flexDirection: 'row',
+                              top: '5%',
+                            }}
+                          >
+                            <Text
+                              style={{
+                                fontSize: 18,
+                                fontWeight: '700',
+                                textAlign: 'left',
+                                alignSelf: 'flex-start',
+                                borderWidth: 1,
+                                borderColor: 'transparent',
+                                height: height * 0.035,
+                                width: width - 330,
+                              }}
+                            >
+                              {item.city}
+                            </Text>
+                            <Text
+                              style={{
+                                fontSize: 18,
+                                fontWeight: '700',
+                                textAlign: 'right',
+                                alignSelf: 'flex-end',
+                                borderWidth: 1,
+                                borderColor: 'transparent',
+                                height: height * 0.035,
+                                width: width - 330,
+                                right: '3%',
+                              }}
+                            >
+                              {item.code}
+                            </Text>
+                          </View>
+                          <Text
+                            style={{
+                              fontSize: 15.2,
+                              justifyContent: 'center',
+                              alignContent: 'center',
+                              alignItems: 'center',
+                              textAlign: 'center',
+                              borderWidth: 1,
+                              borderColor: 'transparent',
+                              height: height * 0.035,
+                              width: width - 227,
+                              top: '2%',
+                            }}
+                          >
+                            {item.railway_station}
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                    );
+                  };
+                  
+                  const renderSecItem = (item) => {
+                    // Pure rendering function
+                    return (
+                      <View
+                        style={{
+                          borderWidth: 0.5,
+                          borderColor: 'rgba(31, 31, 31,0.9)',
+                          height: height * 0.08,
+                          width: width - 225,
+                          backgroundColor: 'rgb(240, 240, 240)',
+                          elevation: 14,
+                        }}
+                      >
+                        <TouchableOpacity onPress={() => dropdownSecond(item)}>
+                          <View
+                            style={{
+                              justifyContent: 'space-between',
+                              flexDirection: 'row',
+                              top: '5%',
+                            }}
+                          >
+                            <Text
+                              style={{
+                                fontSize: 18,
+                                fontWeight: '700',
+                                textAlign: 'left',
+                                alignSelf: 'flex-start',
+                                borderWidth: 1,
+                                borderColor: 'transparent',
+                                height: height * 0.035,
+                                width: width - 330,
+                              }}
+                            >
+                              {item.city}
+                            </Text>
+                            <Text
+                              style={{
+                                fontSize: 18,
+                                fontWeight: '700',
+                                textAlign: 'right',
+                                alignSelf: 'flex-end',
+                                borderWidth: 1,
+                                borderColor: 'transparent',
+                                height: height * 0.035,
+                                width: width - 330,
+                                right: '3%',
+                              }}
+                            >
+                              {item.code}
+                            </Text>
+                          </View>
+                          <Text
+                            style={{
+                              fontSize: 15.2,
+                              justifyContent: 'center',
+                              alignContent: 'center',
+                              alignItems: 'center',
+                              textAlign: 'center',
+                              borderWidth: 1,
+                              borderColor: 'transparent',
+                              height: height * 0.035,
+                              width: width - 227,
+                              top: '2%',
+                            }}
+                          >
+                            {item.railway_station}
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                    );
+                  };
     const dropdownFirst=(record)=>{
     setCountryFirst(record.city);
     setStationFirst(record.railway_station);
@@ -297,66 +421,247 @@ const TrainBooking = () => {
         }}/>
         </View>
       )}
-      {openDropdown&&(
-        <View style={{borderWidth:0.5,position:'absolute',alignSelf:'center',height:height*0.2,width:width-218,top:'24%',backgroundColor:'rgb(240, 240, 240)'}}>
-          <FlatList
-          data={classData}
-          renderItem={({item})=>(
-            <TouchableOpacity onPress={()=>classDataRender(item)}>
-              <View style={{borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',height:height*0.04,width:width-218,justifyContent:'center',alignContent:'center',alignItems:'center',alignSelf:'center'}}><Text style={{fontSize:22,textAlign:'center'}}>{item.class}</Text></View>
-            </TouchableOpacity>
-          )}/>
-        </View>
+    {openDropdown && (
+  <View
+    style={{
+      borderWidth: 0.5,
+      position: 'absolute',
+      alignSelf: 'center',
+      height: height * 0.2,
+      width: width - 218,
+      top: '24%',
+      backgroundColor: 'rgb(240, 240, 240)',
+    }}
+  >
+    <FlatList
+      data={classData} // Ensure no duplicate entries in this array
+      keyExtractor={(item, index) => `${item.id}-${index}`} // Use a combination of id and index for unique keys
+      renderItem={({ item }) => (
+        <TouchableOpacity onPress={() => classDataRender(item)}>
+          <View
+            style={{
+              borderWidth: 0.5,
+              borderColor: 'rgba(31, 31, 31,0.9)',
+              height: height * 0.04,
+              width: width - 218,
+              justifyContent: 'center',
+              alignContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+            }}
+          >
+            <Text style={{ fontSize: 22, textAlign: 'center' }}>
+              {item.class}
+            </Text>
+          </View>
+        </TouchableOpacity>
       )}
-      {passenger&&(
-             <View style={{borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',height:height*0.2,width:width-180,position:'absolute',top:'25%',alignSelf:'flex-end',right:'3%',backgroundColor:'rgb(240, 240, 240)'}}>
-             <ScrollView>
-              <View style={{borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',height:height*0.4,width:width-180}}>
-                <View style={{borderWidth:0.5,borderColor:'transparent',height:height*0.07,width:width-180,alignSelf:'center',flexDirection:'row',justifyContent:'space-between',top:'5%'}}>
-                  <View style={{borderWidth:0.5,borderColor:'transparent',height:height*0.07,width:width-300,flexDirection:'column'}}>
-                    <Text style={{textAlign:'center',fontSize:18,fontWeight:'bold',color:'rgba(31, 31, 31,0.9)'}}>Adults</Text>
-                    <Text style={{textAlign:'center',fontSize:18,fontWeight:'500',color:'rgba(31, 31, 31,0.9)'}}>(12+ years)</Text>
-                  </View>
-                  <View style={{borderWidth:0.5,borderColor:'transparent',height:height*0.07,width:width-310,flexDirection:'row',justifyContent:'center',right:'3%',alignContent:'center',alignItems:'center',alignSelf:'center'}}>
-                    <TouchableOpacity style={{borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',height:height*0.05,width:width-380,borderTopLeftRadius:10,borderBottomLeftRadius:10,alignContent:'center',alignItems:'center',alignSelf:'center',justifyContent:'center',backgroundColor:'#fff'}} onPress={()=>MinusFunction('adult')}><Icons name='minimize' color={'#000'} size={20}/></TouchableOpacity>
-                    <View style={{borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',height:height*0.05,width:width-380,alignContent:'center',alignItems:'center',alignSelf:'center',justifyContent:'center',backgroundColor:'rgba(219, 188, 160,0.7)'}}><Text>{adultNo}</Text></View>
-                    <TouchableOpacity style={{borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',height:height*0.05,width:width-380,borderTopRightRadius:10,borderBottomRightRadius:10,alignContent:'center',alignItems:'center',alignSelf:'center',justifyContent:'center',backgroundColor:'#fff'}} onPress={()=>PlusFunction('adult')}><Icons name='add' color={'#000'} size={20}/></TouchableOpacity>
-                  </View>
-                </View>
-                <View style={{borderWidth:0.5,borderColor:'transparent',height:height*0.07,width:width-180,alignSelf:'center',flexDirection:'row',justifyContent:'space-between',top:'10%'}}>
-                  <View style={{borderWidth:0.5,borderColor:'transparent',height:height*0.07,width:width-300,flexDirection:'column'}}>
-                    <Text style={{textAlign:'center',fontSize:18,fontWeight:'bold',color:'rgba(31, 31, 31,0.9)'}}>Children</Text>
-                    <Text style={{textAlign:'center',fontSize:18,fontWeight:'500',color:'rgba(31, 31, 31,0.9)'}}>(2-12 years)</Text>
-                  </View>
-                  <View style={{borderWidth:0.5,borderColor:'transparent',height:height*0.07,width:width-310,flexDirection:'row',justifyContent:'center',right:'3%',alignContent:'center',alignItems:'center',alignSelf:'center'}}>
-                    <TouchableOpacity style={{borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',height:height*0.05,width:width-380,borderTopLeftRadius:10,borderBottomLeftRadius:10,alignContent:'center',alignItems:'center',alignSelf:'center',justifyContent:'center',backgroundColor:'#fff'}} onPress={()=>MinusFunction('child')}><Icons name='minimize' color={'#000'} size={20}/></TouchableOpacity>
-                    <View style={{borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',height:height*0.05,width:width-380,alignContent:'center',alignItems:'center',alignSelf:'center',justifyContent:'center',backgroundColor:'rgba(219, 188, 160,0.7)'}}><Text>{childNo}</Text></View>
-                    <TouchableOpacity style={{borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',height:height*0.05,width:width-380,borderTopRightRadius:10,borderBottomRightRadius:10,alignContent:'center',alignItems:'center',alignSelf:'center',justifyContent:'center',backgroundColor:'#fff'}} onPress={()=>PlusFunction('child')}><Icons name='add' color={'#000'} size={20}/></TouchableOpacity>
-                  </View>
-                </View>
-                <View style={{borderWidth:0.5,borderColor:'transparent',height:height*0.07,width:width-180,alignSelf:'center',flexDirection:'row',justifyContent:'space-between',top:'15%'}}>
-                  <View style={{borderWidth:0.5,borderColor:'transparent',height:height*0.07,width:width-300,flexDirection:'column'}}>
-                    <Text style={{textAlign:'center',fontSize:18,fontWeight:'bold',color:'rgba(31, 31, 31,0.9)'}}>Babies</Text>
-                    <Text style={{textAlign:'center',fontSize:18,fontWeight:'500',color:'rgba(31, 31, 31,0.9)'}}>(0-2 years)</Text>
-                  </View>
-                  <View style={{borderWidth:0.5,borderColor:'transparent',height:height*0.07,width:width-310,flexDirection:'row',justifyContent:'center',right:'3%',alignContent:'center',alignItems:'center',alignSelf:'center'}}>
-                    <TouchableOpacity style={{borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',height:height*0.05,width:width-380,borderTopLeftRadius:10,borderBottomLeftRadius:10,alignContent:'center',alignItems:'center',alignSelf:'center',justifyContent:'center',backgroundColor:'#fff'}} onPress={()=>MinusFunction('babies')}><Icons name='minimize' color={'#000'} size={20}/></TouchableOpacity>
-                    <View style={{borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',height:height*0.05,width:width-380,alignContent:'center',alignItems:'center',alignSelf:'center',justifyContent:'center',backgroundColor:'rgba(219, 188, 160,0.7)'}}><Text>{babiesNo}</Text></View>
-                    <TouchableOpacity style={{borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',height:height*0.05,width:width-380,borderTopRightRadius:10,borderBottomRightRadius:10,alignContent:'center',alignItems:'center',alignSelf:'center',justifyContent:'center',backgroundColor:'#fff'}} onPress={()=>PlusFunction('babies')}><Icons name='add' color={'#000'} size={20}/></TouchableOpacity>
-                  </View>
-                </View>
-                {passengerError&&(
-                  <View style={{borderWidth:1,borderColor:'transparent',top:'17%',right:'3%',height:height*0.035,width:width-220,alignContent:'center',alignItems:'center',alignSelf:'flex-end',justifyContent:'center'}}>
-                    <Text style={{fontSize:15,color:'red',textAlign:'center',alignSelf:'flex-end'}}>(Select  No. Of Passenger)</Text>
-                    </View>
-                )}
-                <TouchableOpacity style={{borderWidth:1,borderColor:'rgba(190, 122, 68,0.9)',height:height*0.05,width:width-200,alignSelf:'center',top:'20%',alignContent:'center',alignItems:'center',justifyContent:'center'}} onPress={validation}>
-                <Text style={{textAlign:'center',fontSize:22,fontWeight:'bold',color:'rgba(190, 122, 68,0.9)'}}>Done</Text>
-                </TouchableOpacity>
+    />
+  </View>
+)}
+
+{passenger && (
+  <View
+    style={{
+      borderWidth: 0.5,
+      borderColor: 'rgba(31, 31, 31,0.9)',
+      height: height * 0.2,
+      width: width - 180,
+      position: 'absolute',
+      top: '25%',
+      alignSelf: 'flex-end',
+      right: '3%',
+      backgroundColor: 'rgb(240, 240, 240)',
+    }}
+  >
+    <ScrollView>
+      <View
+        style={{
+          borderWidth: 0.5,
+          borderColor: 'rgba(31, 31, 31,0.9)',
+          height: height * 0.4,
+          width: width - 180,
+        }}
+      >
+        {[
+          { label: 'Adults', age: '(12+ years)', key: 'adult' },
+          { label: 'Children', age: '(2-12 years)', key: 'child' },
+          { label: 'Babies', age: '(0-2 years)', key: 'babies' },
+        ].map((item, index) => (
+          <View
+            key={item.key} // Ensure key is unique
+            style={{
+              borderWidth: 0.5,
+              borderColor: 'transparent',
+              height: height * 0.07,
+              width: width - 180,
+              alignSelf: 'center',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              top: `${5 + index * 5}%`, // Dynamically adjust spacing
+            }}
+          >
+            <View
+              style={{
+                borderWidth: 0.5,
+                borderColor: 'transparent',
+                height: height * 0.07,
+                width: width - 300,
+                flexDirection: 'column',
+              }}
+            >
+              <Text
+                style={{
+                  textAlign: 'center',
+                  fontSize: 18,
+                  fontWeight: 'bold',
+                  color: 'rgba(31, 31, 31,0.9)',
+                }}
+              >
+                {item.label}
+              </Text>
+              <Text
+                style={{
+                  textAlign: 'center',
+                  fontSize: 18,
+                  fontWeight: '500',
+                  color: 'rgba(31, 31, 31,0.9)',
+                }}
+              >
+                {item.age}
+              </Text>
+            </View>
+            <View
+              style={{
+                borderWidth: 0.5,
+                borderColor: 'transparent',
+                height: height * 0.07,
+                width: width - 310,
+                flexDirection: 'row',
+                justifyContent: 'center',
+                right: '3%',
+                alignContent: 'center',
+                alignItems: 'center',
+                alignSelf: 'center',
+              }}
+            >
+              <TouchableOpacity
+                style={{
+                  borderWidth: 0.5,
+                  borderColor: 'rgba(31, 31, 31,0.9)',
+                  height: height * 0.05,
+                  width: width - 380,
+                  borderTopLeftRadius: 10,
+                  borderBottomLeftRadius: 10,
+                  alignContent: 'center',
+                  alignItems: 'center',
+                  alignSelf: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: '#fff',
+                }}
+                onPress={() => MinusFunction(item.key)}
+              >
+                <Icons name="minimize" color={'#000'} size={20} />
+              </TouchableOpacity>
+              <View
+                style={{
+                  borderWidth: 0.5,
+                  borderColor: 'rgba(31, 31, 31,0.9)',
+                  height: height * 0.05,
+                  width: width - 380,
+                  alignContent: 'center',
+                  alignItems: 'center',
+                  alignSelf: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: 'rgba(219, 188, 160,0.7)',
+                }}
+              >
+                <Text>
+                  {item.key === 'adult'
+                    ? adultNo
+                    : item.key === 'child'
+                    ? childNo
+                    : babiesNo}
+                </Text>
               </View>
-             </ScrollView>
-             </View>
-      )}
+              <TouchableOpacity
+                style={{
+                  borderWidth: 0.5,
+                  borderColor: 'rgba(31, 31, 31,0.9)',
+                  height: height * 0.05,
+                  width: width - 380,
+                  borderTopRightRadius: 10,
+                  borderBottomRightRadius: 10,
+                  alignContent: 'center',
+                  alignItems: 'center',
+                  alignSelf: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: '#fff',
+                }}
+                onPress={() => PlusFunction(item.key)}
+              >
+                <Icons name="add" color={'#000'} size={20} />
+              </TouchableOpacity>
+            </View>
+          </View>
+        ))}
+        {passengerError && (
+          <View
+            style={{
+              borderWidth: 1,
+              borderColor: 'transparent',
+              top: '17%',
+              right: '3%',
+              height: height * 0.035,
+              width: width - 220,
+              alignContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'flex-end',
+              justifyContent: 'center',
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 15,
+                color: 'red',
+                textAlign: 'center',
+                alignSelf: 'flex-end',
+              }}
+            >
+              (Select No. Of Passenger)
+            </Text>
+          </View>
+        )}
+        <TouchableOpacity
+          style={{
+            borderWidth: 1,
+            borderColor: 'rgba(190, 122, 68,0.9)',
+            height: height * 0.05,
+            width: width - 200,
+            alignSelf: 'center',
+            top: '20%',
+            alignContent: 'center',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          onPress={validation}
+        >
+          <Text
+            style={{
+              textAlign: 'center',
+              fontSize: 22,
+              fontWeight: 'bold',
+              color: 'rgba(190, 122, 68,0.9)',
+            }}
+          >
+            Done
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
+  </View>
+)}
+
       </LinearGradient>
     </View>
   );

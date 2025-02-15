@@ -26,7 +26,12 @@ import AnimatedTextStyle from './src/AnimatedTextStyle';
 import AnimationImageMove from './src/AnimationImageMove';
 import AnimatedImagesMove from './src/AnimatedImagesMove';
 import FadeAnimation from './src/FadeAnimation';
+import { requestPermissions } from './src/Permission';
 import { Layout } from 'react-native-reanimated';
+import AppFile from './src/AppFile';
+import AnotherFile from './src/AnotherFile';
+import UiButton from './src/Button';
+import ImagePickerComponent from './src/ImagePicker';
 
 
 const App=()=>{
@@ -40,18 +45,19 @@ const App=()=>{
       animation:'slide_from_right', //native slide animation 
       gestureDirection:'horizontal',  //Swipe gestures for horizontal transitions
     animationDuration:100 , //duration in milliseconds 
-    }}
-     >
+    }}>
        <Stack.Screen name='HomeScreen' component={Home} options={{headerShown:false}} />
-       <Stack.Screen  name='SignUpExample'component={SignUp} options={{headerShown:false}}/>
+       <Stack.Screen  name='LoginScreen' component={LoginScreen} options={{headerShown:false}}/>
        <Stack.Screen name='LoginExample' component={Login} options={{headerShown:false}}/>
-     <Stack.Screen name='ExploreScreen' component={Explore} options={{headerShown:false}}/>
-     <Stack.Screen name='WishlistScreen' component={Wishlist} options={{headerShown:false}}/>
+       <Stack.Screen component={ImagePickerComponent} name='ImagePicker' options={{headerShown:false}}/>
+       <Stack.Screen component={UiButton} name='UiButton' options={{headerShown:false}}/> 
+       <Stack.Screen name='ExploreScreen' component={Explore} options={{headerShown:false}}/>
+       <Stack.Screen name='WishlistScreen' component={Wishlist} options={{headerShown:false}}/>
+       <Stack.Screen  name='SignUpExample'component={SignUp} options={{headerShown:false}}/>
      <Stack.Screen name='FlightNavigateExample' component={FlightScreen}  options={{headerShown:false}}/>
      <Stack.Screen name={'OfferScreenExample'} component={OfferScreen} options={{headerShown:false}}/>
      <Stack.Screen  name={'TrainScreen'} component={TrainBooking} options={{headerShown:false}}/>
      <Stack.Screen name='HotalNavigateExample' component={HomeNavigate}  options={{headerShown:false}}/>
-      <Stack.Screen  name='LoginScreen' component={LoginScreen} options={{headerShown:false}}/>
      <Stack.Screen name='DetailExample' component={HotelDetail} options={{headerShown:false}}/>
      <Stack.Screen  name={'EditIdExample'}component={EditUserId} options={{headerShown:false}}/>
      <Stack.Screen name='AnimatedFadeScreen' component={FadeAnimation} options={{headerShown:false}}/>
@@ -61,8 +67,9 @@ const App=()=>{
       <Stack.Screen name='AnimatedColorScreen' component={AnimatedColorChange} options={{headerShown:false}}/>
       <Stack.Screen name='AnimatedScreen' component={AnimatedScreen} options={{headerShown:false}}/>
     <Stack.Screen name='NavBarExample' component={NavBar} options={{headerShown:false}}/>
+     {/* <Stack.Screen name='AppFile' component={AppFile} options={{headerShown:false}}/>
+      <Stack.Screen name='AnotherFile' component={AnotherFile} options={{headerShown:false}}/> */}
     </Stack.Navigator>
-   
     </NavigationContainer>
   );
 };
