@@ -10,7 +10,7 @@ const FadeAnimation = () => {
                Animated.timing(animated,{
                 toValue:1,
                 duration:3000,
-                useNativeDriver:false,
+                useNativeDriver:true,
                })).start();
     },[]);
     const fadeButtom=animated.interpolate({

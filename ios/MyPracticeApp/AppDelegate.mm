@@ -1,5 +1,5 @@
-#import "AppDelegate.h"
 
+#import "AppDelegate.h"
 #import <React/RCTBundleURLProvider.h>
 
 @implementation AppDelegate
@@ -11,7 +11,9 @@
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
 
+
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
+
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge

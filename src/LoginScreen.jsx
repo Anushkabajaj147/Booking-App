@@ -1,5 +1,5 @@
 import React, { useState ,useEffect, useCallback} from 'react';
-import { View, Text, Image, Dimensions, TouchableOpacity, FlatList,Animated,Alert } from 'react-native';
+import { View, Text, Image, Dimensions, TouchableOpacity, FlatList,Animated,Alert, SafeAreaView, Platform } from 'react-native';
 import NavBar from './NavBar';
 import Icons from 'react-native-vector-icons/FontAwesome';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
@@ -106,7 +106,12 @@ const LoginScreen = () => {
        }
 
     };
+    const userIdentity=(item)=>{
+        setName(item.first_name);
+        setEmail(item.email);
+    }
     return (
+        <SafeAreaView style={{flex:1}} edges={Platform.OS==='ios'?['top','bottom']:[]}>
         <View style={{ backgroundColor: 'rgba(240, 240, 240,0.9)', flex: 1 }}>
             <LinearGradient
                 colors={['rgba(190, 122, 68,0.9)', 'rgba(219, 188, 160,0.9)', '#fff']}
@@ -114,7 +119,7 @@ const LoginScreen = () => {
                 end={{ x: 1, y: 0 }}
                 style={{borderWidth: 1, borderBottomLeftRadius: 40,borderBottomRightRadius: 40,borderColor: 'rgba(219, 188, 160,0.9)',elevation: 24}}>
                 {/* Header Section */}
-                <View style={{borderWidth: 1,height: height * 0.038,width: width-370,alignSelf:'flex-end',flexDirection: 'row',borderColor: 'transparent',transform:[{scaleX:-1}],right:'0.5%'}}>
+                <View style={{borderWidth: 1,top:'5%',height: height * 0.038,width: width-300,alignSelf:'flex-end',flexDirection: 'row',borderColor: 'transparent',transform:[{scaleX:-1}],right:'4%'}}>
                     <TouchableOpacity style={{borderWidth: 1,height: height * 0.038,width: width - 370,borderColor: 'transparent',position: 'absolute', justifyContent: 'flex-end'}} onPress={()=>Navigation.navigate('EditIdExample')}><Icons name="bars" size={30} color={'rgba(31, 31, 31,0.9)'} /></TouchableOpacity>
                 </View>
 
@@ -123,19 +128,18 @@ const LoginScreen = () => {
                           <Image
                         source={require('./images/womenimageone.jpg')}
                        style={{ height: height * 0.17,width: width - 250,objectFit: 'cover', borderWidth: 1,borderRadius: 80,borderColor: 'transparent',top:'2%'}}/>
-                    <TouchableOpacity style={{ height: height * 0.06,width: width - 350,justifyContent: 'center',alignContent: 'center',alignItems: 'center',borderRadius: 50,borderColor: '#fff',right: '40%',bottom:'2%', borderWidth: 1,alignSelf: 'flex-end',backgroundColor: 'rgba(190, 122, 68,0.9)'}}><Icons name="camera" size={28} color="#fff" /></TouchableOpacity>
+                    <TouchableOpacity style={{ height: height * 0.06,width: width - 350,justifyContent: 'center',alignContent: 'center',alignItems: 'center',borderRadius: 50,borderColor: '#fff',right: '40%',bottom:'6%', borderWidth: 1,alignSelf: 'flex-end',backgroundColor: 'rgba(190, 122, 68,0.9)'}}><Icons name="camera" size={28} color="#fff" /></TouchableOpacity>
                      </View>
 
                 {/* User Information */}
                
-         <View style={{bottom:'50%',borderWidth:1,borderColor:'transparent',width:width-180,alignSelf:'flex-end'}}>
+         <View style={{bottom:'40%',borderWidth:1,borderColor:'transparent',width:width-180,alignSelf:'flex-end',right:'3%'}}>
           <FlatList
            data={filterRecord}
-           renderItem={({item})=>{ setName(item.first_name);
-                                    setEmail(item.email);
+           renderItem={({item})=>{ userIdentity(item);
    return(
      <View>
-        <Text style={{borderWidth:1,borderColor:'transparent',height:height*0.03,fontSize:20,fontWeight:'500',fontStyle:'italic',textAlign:'center',color:'rgb(56, 59, 67)'}}>{item.email}</Text>
+        <Text style={{borderWidth:1,borderColor:'transparent',height:height*0.03,fontSize:18,fontWeight:'500',fontStyle:'italic',textAlign:'center',color:'rgb(56, 59, 67)'}}>{item.email}</Text>
         <Text  style={{borderWidth:1,borderColor:'transparent',height:height*0.03,fontSize:20,fontWeight:'500',textAlign:'center'}}>{item.first_name}</Text>
     </View>)}}
            />
@@ -153,8 +157,8 @@ const LoginScreen = () => {
             {/* Booking Section */}
             <View style={{ borderWidth: 0.2,height: height * 0.1, width: width - 50,alignSelf: 'center', borderRadius: 20,position: 'absolute',top: '30%',backgroundColor: '#fff'}}>
                 <View style={{ flexDirection: 'row' }}>
-                    <Text style={{ borderWidth: 1,borderColor: 'transparent',height: height * 0.035, width: width - 200,left: '2%',fontSize: 20,fontWeight: 'bold',color: 'rgba(31, 31, 31,0.9)'}}>Your Booking:</Text>
-                    <Text style={{borderWidth: 1, height: height * 0.03, width: width - 265, right: 0,position: 'absolute',fontSize: 18, fontWeight: 'bold',color: '#72badb',borderColor: 'transparent'}}>Manage Booking</Text>
+                    <Text style={{ borderWidth: 1,borderColor: 'transparent',height: height * 0.035, width: width - 200,left: '2%',fontSize: 18,fontWeight: 'bold',color: 'rgba(31, 31, 31,0.9)'}}>Your Booking:</Text>
+                    <Text style={{borderWidth: 1, height: height * 0.03, width: width - 265, right: 0,position: 'absolute',fontSize: 16, fontWeight: 'bold',color: '#72badb',borderColor: 'transparent'}}>Manage Booking</Text>
                         </View>
                 <View style={{borderWidth: 0.2,flexDirection: 'row',justifyContent: 'space-evenly',height: height * 0.04,width: width - 50, borderColor: 'transparent'}}>
                     {['Flights', 'Hotels', 'Trains'].map((label, index) => (
@@ -206,7 +210,7 @@ const LoginScreen = () => {
                 </Animated.View>
              ):null}
             {/* Bottom Navigation */}
-               <View style={{flexDirection:'row',height:height*0.05,width:width,borderWidth:1,borderColor:'rgba(224, 224, 224,0.9)',borderTopLeftRadius:20,borderTopRightRadius:20,elevation:24,justifyContent:'space-evenly',backgroundColor:'rgba(224, 224, 224,0.9)',bottom:0,position:'absolute'}}>
+               <View style={{flexDirection:'row',height:height*0.05,width:width,borderWidth:1,borderColor:'rgba(224, 224, 224,0.9)',borderTopLeftRadius:20,borderTopRightRadius:20,elevation:24,justifyContent:'space-evenly',backgroundColor:'rgba(224, 224, 224,0.9)',bottom:'0%',position:'absolute'}}>
                    <TouchableOpacity style={{borderWidth: 1,borderRadius: 20,height: height * 0.04,width: width - 370,borderColor:routing.name=='HomeScreem'?'#fff':'transparent',justifyContent: 'center',alignItems: 'center',alignSelf: 'center',backgroundColor:routing.name=='HomeScreen'?'#fff':'transparent'}}>
                      <Icons name="home" size={28} color={'rgba(131, 126, 126, 0.9)'} onPress={()=>Navigation.navigate('HomeScreen')}/>
                      </TouchableOpacity>
@@ -224,6 +228,7 @@ const LoginScreen = () => {
                      </TouchableOpacity>
                  </View>
         </View>
+        </SafeAreaView>
     );
 };
 

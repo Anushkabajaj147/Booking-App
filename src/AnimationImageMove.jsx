@@ -1,4 +1,4 @@
-import { View, Text,Animated,Dimensions } from 'react-native';
+import { View, Text,Animated,Dimensions, SafeAreaView, Platform } from 'react-native';
 import React, { useEffect } from 'react';
 import NavBar from './NavBar';
 
@@ -38,6 +38,7 @@ const AnimationImageMove = () => {
         }
     );
   return (
+    <SafeAreaView style={{flex:1}} edges={Platform.OS==='ios'?['bottom','top']:[]}>
     <View style={{flex:1,height:height,width:width}}>
  <Animated.Image
     source={require('./images/womenimageone.jpg')} style={{height:height*0.15,width:width-250,transform:[{translateX:transaletX }]}} 
@@ -46,6 +47,7 @@ const AnimationImageMove = () => {
     <NavBar/>
  </View>
     </View>
+    </SafeAreaView>
   );
 };
 

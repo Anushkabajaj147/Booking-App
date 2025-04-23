@@ -1,4 +1,4 @@
-import { View, Text,Dimensions,FlatList, TouchableOpacity,Image,Animated } from 'react-native';
+import { View, Text,Dimensions,FlatList, TouchableOpacity,Image,Animated, SafeAreaView, Platform } from 'react-native';
 import React, { useState,useEffect, useCallback } from 'react';
 import OfferDetails from './OffersDetails';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -57,13 +57,14 @@ const[loading,setLoading]=useState(true);
   )
  }
   return (
+    <SafeAreaView style={{flex:1}} edges={Platform.OS==='ios'?['top','bottom']:[]}>
     <View style={{flex:1,backgroundColor:'rgb(240, 240, 240)'}}>
-      <View style={{borderWidth:1,borderColor:'transparent',height:height*0.088,width:width-10,alignSelf:'center',flexDirection:'row'}}>
-        <TouchableOpacity style={{borderWidth:0.5,borderColor:'transparent',height:height*0.088,width:width-350,justifyContent:'center',alignSelf:'flex-start',alignContent:'center',alignItems:'center'}} ><Icon name='keyboard-arrow-left' size={42} color={'rgba(31, 31, 31,0.9)'} onPress={()=>Navigation.navigate('ExploreScreen')}/></TouchableOpacity>
-        <View style={{borderWidth:0.5,borderColor:'transparent',height:height*0.088,width:width-280,justifyContent:'center',alignSelf:'center',alignContent:'center',alignItems:'center',marginLeft:'20%'}}><Text style={{fontSize:35,fontWeight:'bold',color:'rgba(31, 31, 31,0.9)',alignSelf:'center'}}>Offers</Text></View>
+      <View style={{borderWidth:0.1,borderColor:'transparent',height:height*0.05,width:width-10,alignSelf:'center',flexDirection:'row'}}>
+        <TouchableOpacity style={{borderWidth:0.1,borderColor:'transparent',height:height*0.05,width:width-350,justifyContent:'center',alignSelf:'flex-start',alignContent:'center',alignItems:'center'}} ><Icon name='keyboard-arrow-left' size={42} color={'rgba(31, 31, 31,0.9)'} onPress={()=>Navigation.navigate('ExploreScreen')}/></TouchableOpacity>
+        <View style={{borderWidth:0.1,borderColor:'transparent',height:height*0.05,width:width-280,justifyContent:'center',alignSelf:'center',alignContent:'center',alignItems:'center',marginLeft:'20%'}}><Text style={{fontSize:35,fontWeight:'bold',color:'rgba(31, 31, 31,0.9)',alignSelf:'center'}}>Offers</Text></View>
       </View>
-      <View style={{borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',height:height*0.00,width:width-5,alignSelf:'center'}}/>
-     <View style={{borderWidth:0.5,borderColor:'transparent',height:height*0.8,width:width,alignSelf:'center'}}>
+      <View style={{borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',height:height*0.000,width:width-5,alignSelf:'center',top:height*0.015}}/>
+     <View style={{borderWidth:0.5,borderColor:'transparent',height:height*0.84,width:width-10,alignSelf:'center',top:height*0.03}}>
       <FlatList showsVerticalScrollIndicator={false}
       data={filterData}
       numColumns={2}
@@ -84,11 +85,11 @@ const[loading,setLoading]=useState(true);
         </TouchableOpacity>
       )}/>
      </View>
-     <View style={{bottom:0,flexDirection:'row'}}>
+     <View style={{bottom:'0%',flexDirection:'row'}}>
      <NavBar/>
      </View>
     </View>
-    
+    </SafeAreaView>
   );
 };
 export default OfferScreen;

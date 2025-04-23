@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import {View,Text, Dimensions, TouchableOpacity,FlatList,ScrollView,Image,Animated} from 'react-native';
+import {View,Text, Dimensions, TouchableOpacity,FlatList,ScrollView,Image,Animated, SafeAreaView, Platform} from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialIcons';
 import NavBar from './NavBar';
 import hotelRecords from './Data';
@@ -168,14 +168,15 @@ const Explore=()=>{
 
 
     return(
+      <SafeAreaView style={{flex:1}} edges={Platform.OS==='ios'?['top','bottom']:[]}>
         <View style={{flex:1,backgroundColor:'rgba(240, 240, 240,0.9)'}}>
            <View style={{borderWidth:0.5,height:height*0.07,width:width,borderBottomLeftRadius:10,borderBottomRightRadius:10,flexDirection:'row',alignContent:'center',alignItems:'center',alignSelf:'center',justifyContent:'flex-start',backgroundColor:'rgba(240, 240, 240,0.9)',elevation:10}}>
             <TouchableOpacity style={{borderWidth:1,borderColor:'transparent',height:height*0.07,width:width-370,alignContent:'center',alignItems:'center',alignSelf:'center',justifyContent:'center'}}  onPress={()=>Navigation.navigate('HomeScreen')}><Icons name={'keyboard-arrow-left'}  size={35}  color={'rgba(31, 31, 31,0.9)'}/></TouchableOpacity>
             <View style={{borderWidth:1,borderColor:'transparent',height:height*0.07,width:width-200,left:'17%',alignContent:'center',alignItems:'center',alignSelf:'center',justifyContent:'center'}}><Text style={{textAlign:'center',fontSize:30,fontWeight:'bold',color:'rgba(31, 31, 31,0.9)'}}>Explore Screen</Text></View>
             </View>
             <View style={{
-    borderWidth: 0.1,
-    borderColor: 'rgba(31, 31, 31, 0.9)',
+    borderWidth: 0.2,
+    borderColor: 'transparent',
     borderRadius: 15,
     elevation: 24,
     height: height * 0.065,
@@ -183,13 +184,13 @@ const Explore=()=>{
     alignSelf: 'flex-end',
     right: '1%',
     bottom: 0,
-    top: '2%',
+    top:height*0.02,
     backgroundColor: 'rgba(219, 188, 160, 0.6)'
 }}>
     <TouchableOpacity 
         style={{
-            borderWidth: 0.1,
-            borderColor: 'rgba(31, 31, 31, 0.9)',
+            borderWidth: 0.5,
+            borderColor: 'transparent',
             borderRadius: 15,
             height: height * 0.065,
             width: width - 200,
@@ -199,7 +200,7 @@ const Explore=()=>{
         onPress={showDropdown}>
         
         <View style={{
-            borderWidth: 0.1,
+            borderWidth: 0.5,
             borderColor: 'rgba(31, 31, 31, 0.9)',
             borderRadius: 15,
             height: height * 0.065,
@@ -242,7 +243,7 @@ const Explore=()=>{
     </TouchableOpacity>
 </View>
 
-            <View style={{borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',height:height*0.72,width:width-10,top:'3%',alignSelf:'center'}}>
+            <View style={{borderWidth:0.3,borderColor:'rgba(31, 31, 31,0.9)',height:height*0.72,width:width-10,top:height*0.03,alignSelf:'center'}}>
                 <FlatList
                 data={filterRecords}
                 renderItem={({item})=>{
@@ -415,10 +416,11 @@ const Explore=()=>{
   </View>
 )}
 
-            <View style={{bottom:0,flexDirection:'row',position:'absolute'}}>
+            <View style={{bottom:'0%',flexDirection:'row',position:'absolute'}}>
                 <NavBar/>
             </View>
         </View>
+        </SafeAreaView>
     );
 };
 export default Explore;

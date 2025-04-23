@@ -1,4 +1,4 @@
-import { View, Text, Dimensions, TouchableOpacity, FlatList,TextInput,Keyboard,ScrollView } from 'react-native';
+import { View, Text, Dimensions, TouchableOpacity, FlatList,TextInput,Keyboard,ScrollView, SafeAreaView, Platform } from 'react-native';
 import React, { useState ,useRef,useCallback} from 'react';
 import HomeNavigate from './HomeNavigate';
 import LinearGradient from 'react-native-linear-gradient';
@@ -8,8 +8,9 @@ import { Calendar } from 'react-native-calendars';
 import moment, { weekdays } from 'moment';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { RadioGroup } from 'react-native-radio-buttons-group';
-import { useRoute } from '@react-navigation/native';
+import { useFocusEffect, useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
+import EncryptedStorage from 'react-native-encrypted-storage';
 const FlightScreen = () => {
   const[showCalendar,setShowCalendar]=useState(false);
   const[showDropdown,setShowDropdown]=useState(false);
@@ -65,6 +66,42 @@ const[noOfMultiTravellers,setNoOfMultiTravellers]=useState(false);
 const[adultMultiNo,setAdultMultiNo]=useState(0);
 const[childMultiNo,setChildMultiNo]=useState(0);
 const[infantMultiNo,setInfanttMultiNo]=useState(0);
+const[fetchRecords,setFetchRecords]=useState([]);
+
+useFocusEffect(
+  useCallback(()=>{
+    let Dataget=true;
+    const fetchData=async()=>{
+      try{
+        let FlightScreen=await EncryptedStorage.getItem("settoken");
+        console.log('flightScreen',FlightScreen);
+        const headers={
+          'Authorization':`Bearer ${FlightScreen}`,
+        };
+        let response=await fetch('http://10.0.2.2:3000/api/flightrecords',{headers});
+        if(response.ok)
+        {
+          let data=await response.json();
+          if(Dataget)
+          {
+            setFetchRecords(data);
+          }
+        }
+        else{
+          console.log('error occur while getting response',response.status);
+        }
+      }
+      catch(err){
+        console.log('in catch',err);
+      }
+    }
+    fetchData();
+    return()=>{
+      Dataget=false;
+    }
+  },[])
+);
+
 
 const Routing=useRoute();
   const formattedData=()=>{
@@ -423,11 +460,12 @@ const PlusMultiFunction=(string) =>{
 );
     }, []);
   return (
+    <SafeAreaView style={{flex:1}} edges={Platform.OS==='ios'?['top','bottom']:[]}>
     <View style={{flex:1,backgroundColor:'rgb(240, 240, 240)'}}>
-      <View style={{flexDirection:'row'}}>
+      <View style={{flexDirection:'row',top:height*0.02}}>
       <HomeNavigate/>
       </View>
-      <View style={{top:'2.3%',height:height*0.076,width:width,borderWidth:1,borderColor:'transparent',backgroundColor:'rgb(240, 240, 240)'}}>
+      <View style={{top:'4.5%',height:height*0.076,width:width,borderWidth:1,borderColor:'transparent',backgroundColor:'rgb(240, 240, 240)'}}>
         <View style={{borderWidth:1,borderColor:'transparent',height:height*0.03,width:width,justifyContent:'center',alignSelf:'flex-start'}}>
         <Text style={{fontSize:17,fontWeight:'bold',textAlign:'left',color:'rgb(97, 125, 138)'}}>Book International & Domestic Flights:-</Text>
         </View>
@@ -439,21 +477,21 @@ const PlusMultiFunction=(string) =>{
           containerStyle={{height:height*0.04,borderWidth:0.5,borderColor:'transparent',width:width,alignSelf:'flex-start',justifyContent:'flex-start',top:'1%'}}
           layout={'row'}/>
         </View>
-        <LinearGradient colors={['rgba(190, 122, 68,0.9)','rgba(219, 188, 160,0.9)','#fff']} start={{x:0,y:1}} end={{x:1,y:0}} style={{flex:1,top:'2%',borderWidth:1,borderColor:'rgb(240, 240, 240)',borderTopLeftRadius:25,borderTopRightRadius:25}}>
+        <LinearGradient colors={['rgba(190, 122, 68,0.9)','rgba(219, 188, 160,0.9)','#fff']} start={{x:0,y:1}} end={{x:1,y:0}} style={{flex:1,top:'6%',borderWidth:1,borderColor:'rgb(240, 240, 240)',borderTopLeftRadius:25,borderTopRightRadius:25}}>
       <View style={{borderWidth:1,borderColor:'rgba(31, 31, 31,0.9)',height:height,width:width,borderTopLeftRadius:25,borderTopRightRadius:25}}>
-      <View style={{backgroundColor:'#fff',borderWidth:0.5,borderRadius:10,height:height*0.25,width:width-10,alignSelf:'center',top:'2%',elevation:20}}>
+      <View style={{backgroundColor:'#fff',borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',borderRadius:10,height:height*0.25,width:width-20,alignSelf:'center',top:'2%'}}>
         <View style={{flexDirection:'row',justifyContent:'space-evenly',borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',borderTopLeftRadius:10,borderTopRightRadius:10}}>
         <View style={{alignSelf:'flex-start',position:'absolute',borderWidth:1,borderColor:'rgb(219, 188, 160)',left:'46%',top:'38%',borderRadius:20,backgroundColor:'rgb(219, 188, 160)'}}>
           <Icon name='compare-arrows' size={35} color={'rgba(31, 31, 31,0.72)'}/>
         </View>
-        <TouchableOpacity style={{borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',borderTopLeftRadius:10,height:height*0.122,width:width-212}} onPress={formattedData}> 
+        <TouchableOpacity style={{borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',borderTopLeftRadius:10,height:height*0.122,width:width-218}} onPress={formattedData}> 
        <View >
         <Text style={{borderWidth:1,borderColor:'transparent',fontSize:20,fontWeight:'bold',left:'2%',color:'rgba(190, 122, 68,0.9)',height:height*0.027,width:width-215}}>From</Text>
         <View style={{borderWidth:1,borderColor:'transparent',height:height*0.03,width:width-320,top:'5%',alignSelf:'center'}}><Text style={{textAlign:'center',fontSize:22,fontWeight:'bold',color:'rgba(31, 31, 31,0.9)'}}>{dropdownLabel}</Text></View>
         <Text style={{fontSize:15,borderWidth:1,borderColor:'transparent',textAlign:'center',height:height*0.045,top:'10%',color:'rgba(31, 31, 31,0.9)'}}>{dropdownValue}</Text>
        </View>
         </TouchableOpacity>
-        <TouchableOpacity  style={{borderWidth:0.5,borderTopRightRadius:10,height:height*0.122,width:width-212}} onPress={()=>setShowSecDropdown(true)} >
+        <TouchableOpacity  style={{borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',borderTopRightRadius:10,height:height*0.122,width:width-218}} onPress={()=>setShowSecDropdown(true)} >
           <View>
         <Text style={{borderWidth:1,borderColor:'transparent',fontSize:20,fontWeight:'bold',left:'2%',color:'rgba(190, 122, 68,0.9)',height:height*0.027,width:width-215}}>To</Text>
             <Text style={{borderWidth:1,borderColor:'transparent',height:height*0.03,width:width-320,top:'5%',alignSelf:'center',textAlign:'center',fontSize:22,fontWeight:'bold',color:'rgba(31, 31, 31,0.9)'}}>{secDropdownLabel}</Text>
@@ -464,19 +502,19 @@ const PlusMultiFunction=(string) =>{
         <View style={{flexDirection:'row',justifyContent:'space-between',borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',height:height*0.125,borderBottomLeftRadius:10,borderBottomRightRadius:10}}>
           <TouchableOpacity style={{borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',height:height*0.125,width:width-287,borderBottomLeftRadius:10}} onPress={()=>setShowCalendar(true)}>
           <View style={{flexDirection:'column'}}> 
-            <Text style={{borderWidth:1,borderColor:'transparent',fontSize:20,fontWeight:'bold',left:'2%',color:'rgba(190, 122, 68,0.9)',height:height*0.032,width:width-287}}>Departure</Text>
+            <Text style={{borderWidth:1,borderColor:'transparent',fontSize:20,fontWeight:'bold',left:'2%',color:'rgba(190, 122, 68,0.9)',height:height*0.032,width:width-288}}>Departure</Text>
           <Text style={{borderWidth:1,borderColor:'transparent',fontSize:20,top:'8%',fontWeight:'bold',textAlign:'center',color:'rgba(31, 31, 31,0.9)'}}>{date}</Text>
           <Text style={{borderWidth:1,borderColor:'transparent',fontSize:20,top:'8%',textAlign:'center',color:'rgba(31, 31, 31,0.9)'}}>{day}</Text> 
         </View>
           </TouchableOpacity>
           <TouchableOpacity style={{borderWidth:0.5,height:height*0.125,width:width-287}} onPress={()=>setShowSecCalendar(true)}>
             <View>
-            <Text style={{borderWidth:1,borderColor:'transparent',fontSize:20,fontWeight:'bold',left:'2%',color:'rgba(190, 122, 68,0.9)',height:height*0.032,width:width-287}}>Return</Text>
+            <Text style={{borderWidth:1,borderColor:'transparent',fontSize:20,fontWeight:'bold',left:'2%',color:'rgba(190, 122, 68,0.9)',height:height*0.032,width:width-288}}>Return</Text>
               <Text style={{borderWidth:1,borderColor:'transparent',fontSize:20,top:'8%',fontWeight:'bold',textAlign:'center',color:'rgba(31, 31, 31,0.9)'}}>{secDate}</Text>
               <Text style={{borderWidth:1,borderColor:'transparent',fontSize:20,top:'8%',textAlign:'center',color:'rgba(31, 31, 31,0.9)'}}>{secDay}</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={{borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',height:height*0.125,width:width-260,borderBottomRightRadius:10}} onPress={()=>setNoOfTravellers(true)}>
+          <TouchableOpacity style={{borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',height:height*0.125,width:width-270,borderBottomRightRadius:10}} onPress={()=>setNoOfTravellers(true)}>
             <Text style={{borderWidth:1,borderColor:'transparent',fontSize:16,left:'1%',textAlign:'center',width:width-260,fontWeight:'bold',color:'rgba(190, 122, 68,0.9)'}}>Travellers & Cabin Class</Text>
             <Text style={{borderWidth:1,borderColor:'transparent',fontSize:15,alignSelf:'center',height:height*0.020,width:width-285,fontWeight:'bold',textAlign:'center',color:'rgba(31, 31, 31,0.9)' }}>{counttravellers}</Text>
             <Text style={{borderWidth:1,borderColor:'transparent',fontSize:16,height:height*0.045,width:width-275,alignSelf:'center',alignContent:'center',alignItems:'center',fontWeight:'bold',textAlign:'center'}}>{showCabinClass}</Text>
@@ -491,10 +529,10 @@ const PlusMultiFunction=(string) =>{
       alignSelf: "center",
       borderRadius: 10,
       height: height * 0.248,
-      width: width - 10,
+      width: width - 20,
       backgroundColor: "#fff",
       top: "5%",
-      elevation: 24,
+      
     }}
   >
     <View style={{ flexDirection: "row", alignSelf: "center" }}>
@@ -504,6 +542,7 @@ const PlusMultiFunction=(string) =>{
           position: "absolute",
           borderWidth: 2,
           borderColor: "rgb(219, 188, 160)",
+          backgroundColor: "#fff",
           left: "45.8%",
           top: "38%",
           borderRadius: 20,
@@ -519,12 +558,12 @@ const PlusMultiFunction=(string) =>{
           borderWidth: 0.5,
           borderColor: "rgba(31, 31, 31,0.9)",
           height: height * 0.122,
-          width: width - 212,
+          width: width - 217,
           borderTopLeftRadius: 10,
         }}
         onPress={() => setMultiWayDropdownOne(true)}
       >
-        <View>
+        <View style={{}}>
           <Text
             style={{
               fontSize: 20,
@@ -564,7 +603,7 @@ const PlusMultiFunction=(string) =>{
         style={{
           borderWidth: 0.5,
           height: height * 0.122,
-          width: width - 212,
+          width: width - 217,
           borderTopRightRadius: 10,
         }}
         onPress={() => setMultiWayDropdownTwo(true)}
@@ -611,7 +650,7 @@ const PlusMultiFunction=(string) =>{
         style={{
           borderWidth: 0.2,
           height: height * 0.125,
-          width: width - 287,
+          width: width - 295,
         }}
         onPress={() => setMultiWayCalenderOne(true)}
       >
@@ -655,7 +694,7 @@ const PlusMultiFunction=(string) =>{
         style={{
           borderWidth: 0.2,
           height: height * 0.125,
-          width: width - 287,
+          width: width - 295,
         }}
         onPress={() => setMultiWayCalendarTwo(true)}
       >
@@ -699,7 +738,7 @@ const PlusMultiFunction=(string) =>{
         style={{
           borderWidth: 0.2,
           height: height * 0.125,
-          width: width - 260,
+          width: width - 256,
         }}
         onPress={() => setMultiNoOfTravellers(true)}
       >
@@ -1158,7 +1197,7 @@ const PlusMultiFunction=(string) =>{
           <View style={{borderWidth:0.5,height:height*0.2,width:width-220,backgroundColor:'rgb(240, 240, 240)',position:'absolute',alignSelf:"flex-end",right:'2.5%',top:'15%',elevation:10}}>
           <FlatList
           keyExtractor={(item)=>item.id.toString()}
-          data={Data}
+          data={fetchRecords}
           renderItem={({item})=>{return showSecondDropdown(item)}}/>
           </View>)}
         
@@ -1166,7 +1205,7 @@ const PlusMultiFunction=(string) =>{
      <View style={{borderWidth:0.5,height:height*0.2,width:width-220,backgroundColor:'rgb(240, 240, 240)',position:'absolute',alignSelf:"flex-start",top:'15%',left:'2%',elevation:10}}>
      <FlatList
      keyExtractor={(item)=>item.id.toString()}
-     data={Data}
+     data={fetchRecords}
      renderItem={({item})=>{return showFirstDropdown(item)}}/>
      </View>
       )}
@@ -1860,7 +1899,7 @@ const PlusMultiFunction=(string) =>{
         {multiWayDropdownOne&&(
        <View style={{borderWidth:0.5,height:height*0.2,width:width-225,left:'2%',backgroundColor:'rgb(240, 240, 240)',position:'absolute',top:'43%',alignSelf:'flex-start',elevation:10}}>
         <FlatList
-        data={Data}
+        data={fetchRecords}
         keyExtractor={(item)=>item.id.toString()}
         renderItem={({item})=>{return multiWayFirstDropdown(item)}}/>
         </View>)}
@@ -1870,7 +1909,7 @@ const PlusMultiFunction=(string) =>{
       {multiWayDropdownTwo&&(
         <View style={{borderWidth:0.5,height:height*0.2,width:width-220,backgroundColor:'rgb(240, 240, 240)',position:'absolute',alignSelf:"flex-end",right:'2.5%',top:'43%',elevation:10}}>
           <FlatList
-          data={Data}
+          data={fetchRecords}
           keyExtractor={(item)=>item.id.toString()}
           renderItem={({item})=>{return multiWaySecondDropdown(item)}}/>
         </View>)}
@@ -1878,6 +1917,7 @@ const PlusMultiFunction=(string) =>{
      </LinearGradient>
 
     </View>
+    </SafeAreaView>
   );
 };
 

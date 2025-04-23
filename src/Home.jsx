@@ -1,5 +1,5 @@
 import React, { useEffect, useState,useCallback } from 'react';
-import {Text,View,Image,Dimensions,ScrollView, TouchableOpacity,Animated, ActivityIndicator} from 'react-native';
+import {Text,View,Image,Dimensions,ScrollView, TouchableOpacity,Animated, ActivityIndicator, SafeAreaView,Platform} from 'react-native';
 import hotelRecords from './Data';
 import { useNavigation } from '@react-navigation/native';
 import Icons from 'react-native-vector-icons/FontAwesome';
@@ -32,8 +32,6 @@ const Home=()=>{
 
   
     const fetchHotelRecords = async () => {   //asynchrozed means line of code executed in parrallel way
-      
-
         if(renderData){  
         console.log('data passed');
     try {
@@ -118,9 +116,9 @@ const Home=()=>{
       
   const updateData=(navData)=>{
     let hotelRecord=[];
-    for(let i=0;i<hotelRecords.length;i++)
+    for(let i=0;i<filterHotel.length;i++)
    {
-      let hotel=hotelRecords[i];
+      let hotel=filterHotel[i];
       let navDataConversion=convertionFunction(navData);
       let hotelNameConversion=convertionFunction(hotel.name);
        
@@ -291,25 +289,26 @@ if(deletedRecord)
    
   
   return(
+    <SafeAreaView style={{flex:1}} edges={Platform.OS==='ios'?['top','bottom']:[]}>
       <View style={{flex:1,height:height,width:width,paddingBottom:'18%',backgroundColor:'rgb(240, 240, 240)'}}>
-      <LinearGradient colors={['rgba(190, 122, 68,0.9)','rgba(219, 188, 160,0.9)','#fff']} start={{x:0,y:1}} end={{x:1,y:0}} style={{height:height*0.25,width:width,borderWidth:1,borderBottomLeftRadius:20,borderBottomRightRadius:20,borderColor:'rgba(219, 188, 160,0.9)',elevation:24}}>
-                         <View style={{flexDirection:'column',borderWidth:1,borderColor:'transparent',top:'15%',left:30,width:width-130}}>
+      <LinearGradient colors={['rgba(190, 122, 68,0.9)','rgba(219, 188, 160,0.9)','#fff']} start={{x:0,y:1}} end={{x:1,y:0}} style={{height:height*0.22,width:width,borderWidth:1,borderBottomLeftRadius:20,borderBottomRightRadius:20,borderColor:'rgba(219, 188, 160,0.9)',elevation:24}}>
+                         <View style={{flexDirection:'column',borderWidth:1,borderColor:'transparent',top:'18%',left:30,width:width-130}}>
                           <Text style={{color:'rgba(31, 31, 31,0.9)',fontSize:25,fontWeight:'bold',borderColor:'transparent',borderWidth:1}}>Beautiful Place To Live</Text>
                           <Text  style={{color:'rgba(31, 31, 31,0.9)',borderWidth:1,fontSize:12,borderColor:'transparent',fontWeight:'bold'}}>Find A Source You Want To Spend Time</Text>
                           </View> 
                            {/*<TouchableOpacity activeOpacity={0.7}  style={{borderWidth:1,width:width-330,alignSelf:'flex-end'}}onPress={()=>Navigation.navigate('UiButton')}><Text style={{alignSelf:'flex-end',borderWidth:1,fontSize:15}}>Permission</Text></TouchableOpacity>*/}
-                          <TouchableOpacity style={{height:height*0.05,width:width-80,backgroundColor:'#fff',flexDirection:'row',top:'17%',borderRadius:15,left:'6%',borderColor:'transparent',borderWidth:1}} onPress={updateData}>
+                          <TouchableOpacity style={{height:height*0.05,width:width-80,backgroundColor:'#fff',flexDirection:'row',top:'21%',borderRadius:15,left:'6%',borderColor:'transparent',borderWidth:1}} onPress={updateData}>
                               <TextInput style={{fontSize:20,color:'grey',top:'2%',left:'5%',paddingLeft:'7%',borderWidth:1,borderColor:'transparent',height:height*0.045,width:width-120,alignSelf:'flex-start',justifyContent:'center',backgroundColor:'transparent'}}  underlineColor='grey' activeUnderlineColor='rgba(190, 122, 68,0.9)' onChangeText={(navData)=>{setNavData(navData);
                                                                                                                                                                                                                                                                      updateData(navData);
                               }} value={navData} mode={'flat'}  left={<TextInput.Icon icon={'home-outline'} size={35} style={{borderWidth:1,borderColor:'transparent',borderRadius:0,height:height*0.044,width:width-350}}/>} placeholder="Search Here"/>
                           </TouchableOpacity>
                       </LinearGradient>
-               <ScrollView showsVerticalScrollIndicator={false} style={{ top:'4%'}}>
+               <ScrollView showsVerticalScrollIndicator={false} style={{ top:'7%',bottom:'2%'}}>
                          
                       {filterHotel.map((record,index)=>{
                           const starRange=getStarRating(record.price);
                           return(
-                          <View key={index} style={{ flex: 1, height: height * 0.2,width: width - 35,marginHorizontal: 10,marginVertical: 10}}>
+                          <View key={index} style={{ flex: 1, height: height * 0.2 ,width: width - 35,marginHorizontal: 10,marginVertical: 10}}>
                                 <TouchableOpacity
                                   activeOpacity={0.9}
                                   style={{ height: height * 0.2,width: width - 35,borderWidth: 1,borderColor:'transparent',borderRadius: 10,backgroundColor: '#fff',alignSelf: 'center',elevation: 24}}>
@@ -363,7 +362,7 @@ if(deletedRecord)
             <HomeNavigate/>
           </View>
           
-                  <View style={{flexDirection:'row',height:height*0.05,width:width,borderWidth:1,borderColor:'rgba(224, 224, 224,0.9)',borderTopLeftRadius:20,borderTopRightRadius:20,elevation:24,justifyContent:'space-evenly',backgroundColor:'rgba(224, 224, 224,0.9)',bottom:0,position:'absolute'}}>
+                  <View style={{flexDirection:'row',height:height*0.05,width:width,borderWidth:1,borderColor:'rgba(224, 224, 224,0.9)',borderTopLeftRadius:20,borderTopRightRadius:20,elevation:24,justifyContent:'space-evenly',backgroundColor:'rgba(224, 224, 224,0.9)',bottom:'0',position:'absolute'}}>
                          <TouchableOpacity style={{borderWidth: 1,borderRadius: 20,height: height * 0.04,width: width - 370,borderColor:routing.name=='HomeScreem'?'#fff':'transparent',justifyContent: 'center',alignItems: 'center',alignSelf: 'center',backgroundColor:routing.name=='HomeScreen'?'#fff':'transparent'}} onPress={()=>Navigation.navigate('HomeScreen')}>
                                               <Icons name="home" size={28} color={'rgba(131, 126, 126, 0.9)'} onPress={()=>Navigation.navigate('HomeScreen')}/>
                                               </TouchableOpacity>
@@ -381,6 +380,7 @@ if(deletedRecord)
                                               </TouchableOpacity>
                  </View>
     </View>
+    </SafeAreaView>
   );
 };
 export default Home;

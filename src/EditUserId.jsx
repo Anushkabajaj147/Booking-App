@@ -1,5 +1,5 @@
 import React ,{useCallback, useEffect,useState}from 'react';
-import { View, Text, TouchableOpacity, Dimensions, Image,ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, Dimensions, Image,ScrollView, SafeAreaView, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation,useFocusEffect } from '@react-navigation/native';
 import { TextInput } from 'react-native-paper';
@@ -36,7 +36,7 @@ const EditUserId = () => {
   //           let token=await EncryptedStorage.getItem("settoken");
   //           console.log('editablescreen',token);
            
-  //           const response = await fetch ('http://10.0.2.2:3000/api/users/:usersid',{
+  //           const response = await fetch ('http://localhost:3000/api/users/:usersid',{
   //             method:'PUT',
   //              headers:{
   //               'Content-Type':'application/json',
@@ -149,13 +149,14 @@ const EditUserId = () => {
   };
    
   return (
+    <SafeAreaView style={{flex:1}} edges={Platform.OS==='ios'?['top','bottom']:[]}>
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
       <LinearGradient
         colors={['rgba(190, 122, 68,0.9)', 'rgba(219, 188, 160,0.9)', '#fff']}
         start={{ x: 0, y: 1 }}
         end={{ x: 1, y: 0 }}
         style={{ borderWidth: 1,height: height * 0.28,width: width,borderBottomLeftRadius: 30,borderBottomRightRadius: 30,borderColor: 'rgba(219, 188, 160,0.9)',elevation: 24}}>
-        <TouchableOpacity style={{height: height * 0.045,borderWidth: 1,width: width - 375,justifyContent: 'center',left: 10,borderColor: 'transparent'}} onPress={() => Navigation.navigate('LoginScreen')}>
+        <TouchableOpacity style={{height: height * 0.045,borderWidth: 1,width: width - 375,justifyContent: 'center',left: '5%',top:'5%',borderColor: 'transparent'}} onPress={() => Navigation.navigate('LoginScreen')}>
           <Icon name={'arrow-left'} size={20} color={'rgba(31, 31, 31,0.9)'} /></TouchableOpacity>
       </LinearGradient>
       <View  style={{borderWidth: 1,height: height * 0.7, width: width - 50,alignSelf: 'center',bottom:height*0.15, backgroundColor: 'rgba(240, 240, 240,0.9)'}}>
@@ -192,6 +193,7 @@ const EditUserId = () => {
         </ScrollView>
       </View>
     </View>
+    </SafeAreaView>
   );
 };
 

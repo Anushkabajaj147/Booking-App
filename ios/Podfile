@@ -20,9 +20,12 @@ target 'MyPracticeApp' do
   use_react_native!(
     :path => config[:reactNativePath],
     # An absolute path to your application root.
+      :hermes_enabled => true,
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  # Add this line
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
   target 'MyPracticeAppTests' do
     inherit! :complete
     # Pods for testing

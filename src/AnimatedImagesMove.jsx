@@ -1,4 +1,4 @@
-import { View, Text, Dimensions,Animated } from 'react-native';
+import { View, Text, Dimensions,Animated, Platform,SafeAreaView } from 'react-native';
 import React, { useEffect } from 'react';
 import { AnimatedFAB } from 'react-native-paper';
 
@@ -61,6 +61,7 @@ const AnimatedImagesMove = () => {
     })
   
   return (
+    <SafeAreaView style={{flex:1}} edges={Platform.OS==='ios'?['bottom','top']:[]}>
     <View>
         <Animated.Text style={{fontSize:25,fontWeight:'bold',transform:[{translateX:translateX}]}}>
              Text Moving Horizontal
@@ -69,6 +70,7 @@ const AnimatedImagesMove = () => {
             Text Moving Vertical
         </Animated.Text>
     </View>
+    </SafeAreaView>
   );
 };
 export default AnimatedImagesMove;

@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import {View,Text, Dimensions,FlatList, TouchableOpacity,Image,Animated} from 'react-native';
+import {View,Text, Dimensions,FlatList, TouchableOpacity,Image,Animated, SafeAreaView, Platform} from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
 import NavBar from './NavBar';
@@ -82,7 +82,7 @@ const AnotherFile=({route})=>{
     if ( !wishlist||wishlist.length===0) {
         console.log(wishlist.length);
        return(
-    
+        <SafeAreaView style={{flex:1}} edges={Platform.OS==='ios'?['bottom','top']:[]}>
         <LinearGradient colors={['rgba(190, 122, 68,0.9)','rgba(219, 188, 160,0.9)','#fff']} start={{x:0,y:1}} end={{x:1,y:0}} style={{flex:1}}>
             <View style={{borderWidth:0.5,height:height*0.07,width:width,borderBottomLeftRadius:10,borderBottomRightRadius:10,flexDirection:'row',justifyContent:'flex-start',backgroundColor:'rgba(224, 224, 224,0.9)'}}>
             <TouchableOpacity style={{borderWidth:1,borderColor:'transparent',height:height*0.05,width:width-430,alignContent:'center',alignItems:'center',alignSelf:'center',justifyContent:'center',left:'2%'}} onPress={()=>Navigation.navigate('OfferScreenExample')}><Icons name='keyboard-arrow-left' color={'rgba(31, 31, 31,0.9)'} size={35} onPress={()=>Navigation.navigate('OfferScreenExample')}/></TouchableOpacity>
@@ -100,13 +100,14 @@ const AnotherFile=({route})=>{
             <NavBar/>
             </View> */}
         </LinearGradient>
-      
+        </SafeAreaView>
        );
         };
         
 
      
     return(
+      <SafeAreaView style={{flex:1}} edges={Platform.OS==='ios'?['bottom','top']:[]} >
         <View style={{flex:1,backgroundColor:'rgba(240, 240, 240,0.9)'}}>
             <View style={{borderWidth:0.5,height:height*0.07,width:width,borderBottomLeftRadius:10,borderBottomRightRadius:10,flexDirection:'row',justifyContent:'flex-start',backgroundColor:'rgba(224, 224, 224,0.9)'}}>
             <TouchableOpacity style={{borderWidth:1,borderColor:'transparent',height:height*0.05,width:width-430,alignContent:'center',alignItems:'center',alignSelf:'center',justifyContent:'center',left:'2%'}} onPress={()=>Navigation.navigate('OfferScreenExample')}><Icons name='keyboard-arrow-left' color={'rgba(31, 31, 31,0.9)'} size={35} onPress={()=>Navigation.navigate('OfferScreenExample')}/></TouchableOpacity>
@@ -199,6 +200,7 @@ const AnotherFile=({route})=>{
             <NavBar/>
             </View>
         </View>
+        </SafeAreaView>
     );
 };
 export default AnotherFile;

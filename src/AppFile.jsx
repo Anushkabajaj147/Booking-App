@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Text,View,Image,Dimensions,ScrollView, TouchableOpacity,Animated, ActivityIndicator} from 'react-native';
+import {Text,View,Image,Dimensions,ScrollView, TouchableOpacity,Animated, ActivityIndicator, SafeAreaView, Platform} from 'react-native';
 import hotelRecords from './Data';
 import { useNavigation } from '@react-navigation/native';
 import Icons from 'react-native-vector-icons/FontAwesome';
@@ -121,6 +121,7 @@ const AppFile=()=>{
    };
    
     return(
+      <SafeAreaView style={{flex:1}} edges={Platform.OS==='ios'?['bottom','top']:[]}>
       <View style={{flex:1,height:height,width:width,paddingBottom:'18%',backgroundColor:'rgb(240, 240, 240)'}}>
       <LinearGradient colors={['rgba(190, 122, 68,0.9)','rgba(219, 188, 160,0.9)','#fff']} start={{x:0,y:1}} end={{x:1,y:0}} style={{height:height*0.25,width:width,borderWidth:1,borderBottomLeftRadius:20,borderBottomRightRadius:20,borderColor:'rgba(219, 188, 160,0.9)',elevation:24}}>
                          <View style={{flexDirection:'column',borderWidth:1,borderColor:'transparent',top:'15%',left:30,width:width-130}}>
@@ -207,6 +208,7 @@ const AppFile=()=>{
                                               </TouchableOpacity>
                  </View>
     </View>
+    </SafeAreaView>
   );
 };
 export default AppFile;

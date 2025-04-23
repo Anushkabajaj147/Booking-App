@@ -1,4 +1,4 @@
-import { View, Text, Animated, Dimensions } from 'react-native';
+import { View, Text, Animated, Dimensions,Platform,SafeAreaView} from 'react-native';
 import React, { useEffect } from 'react';
 import NavBar from './NavBar';
 
@@ -10,7 +10,7 @@ const AnimatedColorChange = () => {
         Animated.timing(animatedValue,{
             toValue:4,
             duration:5000,
-            useNativeDriver:false, //usenative driver is false here because it support transform,opacity condition not supported color,size related animation 
+            useNativeDriver:true, //usenative driver is false here because it support transform,opacity condition not supported color,size related animation 
         })
     ).start();
     },[]);
@@ -19,7 +19,8 @@ const AnimatedColorChange = () => {
         outputRange:['red','green','yellow','purple'],
     });
   return (
-    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+    <SafeAreaView style={{flex:1}} edges={Platform.OS==='ios'?['top','bottom']:[]}>
+    <View style={{justifyContent:'center',alignItems:'center'}}>
     <Animated.View style={{height:height-250,width:width-200,backgroundColor:backgroundColorInterpolate}}>
         
     </Animated.View>
@@ -28,8 +29,10 @@ const AnimatedColorChange = () => {
     </View>
     <View style={{position:'absolute',bottom:0,flexDirection:'row'}}>
         <NavBar/>
+
     </View>
     </View>
+    </SafeAreaView>
   );
 };
 

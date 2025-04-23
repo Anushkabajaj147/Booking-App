@@ -32,11 +32,10 @@ import AppFile from './src/AppFile';
 import AnotherFile from './src/AnotherFile';
 import UiButton from './src/Button';
 import ImagePickerComponent from './src/ImagePicker';
-
+import SplashScreen from './src/SplashScreen';
 
 const App=()=>{
   const Stack=createNativeStackNavigator();
-  
   return(
     <NavigationContainer>
      <Stack.Navigator 
@@ -46,6 +45,8 @@ const App=()=>{
       gestureDirection:'horizontal',  //Swipe gestures for horizontal transitions
     animationDuration:100 , //duration in milliseconds 
     }}>
+     <Stack.Screen name='SplashScreen' component={SplashScreen} options={{headerShown:false}}/>
+      <Stack.Screen  name='SignUpExample' component={SignUp} options={{headerShown:false}}/>
        <Stack.Screen name='HomeScreen' component={Home} options={{headerShown:false}} />
        <Stack.Screen  name='LoginScreen' component={LoginScreen} options={{headerShown:false}}/>
        <Stack.Screen name='LoginExample' component={Login} options={{headerShown:false}}/>
@@ -53,7 +54,6 @@ const App=()=>{
        <Stack.Screen component={UiButton} name='UiButton' options={{headerShown:false}}/> 
        <Stack.Screen name='ExploreScreen' component={Explore} options={{headerShown:false}}/>
        <Stack.Screen name='WishlistScreen' component={Wishlist} options={{headerShown:false}}/>
-       <Stack.Screen  name='SignUpExample'component={SignUp} options={{headerShown:false}}/>
      <Stack.Screen name='FlightNavigateExample' component={FlightScreen}  options={{headerShown:false}}/>
      <Stack.Screen name={'OfferScreenExample'} component={OfferScreen} options={{headerShown:false}}/>
      <Stack.Screen  name={'TrainScreen'} component={TrainBooking} options={{headerShown:false}}/>

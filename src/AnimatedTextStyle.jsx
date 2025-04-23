@@ -1,4 +1,4 @@
-import { View, Text,Animated, Dimensions } from 'react-native';
+import { View, Text,Animated, Dimensions, SafeAreaView, Platform } from 'react-native';
 import React, { useEffect } from 'react';
 import NavBar from './NavBar';
 
@@ -9,7 +9,7 @@ const AnimatedTextStyle = () => {
       Animated.timing(animatedValue,{
       toValue:1,
       duration:5000,  //5 milliseconds
-      useNativeDriver:false, //usenative driver doesnot support size related animation 
+      useNativeDriver:true, //usenative driver doesnot support size related animation 
       })).start();
     },[])
     const fontSizeChange=animatedValue.interpolate(
@@ -17,6 +17,7 @@ const AnimatedTextStyle = () => {
             outputRange:[14,30],
         });
     return (
+      <SafeAreaView style={{flex:1}} edges={Platform.OS==='ios'?['bottom','top']:[]}>
     <View>
       <Animated.Text style={{fontSize:fontSizeChange}}>
         Animation 
@@ -25,6 +26,7 @@ const AnimatedTextStyle = () => {
       <NavBar/>
       </View>
     </View>
+    </SafeAreaView>
   );
 };
 

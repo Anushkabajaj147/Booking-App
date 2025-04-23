@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Animated, Text, View } from 'react-native';
+import { Animated, Text, View,SafeAreaView, Platform } from 'react-native';
 import NavBar from './NavBar';
 
 const FadeInView = ({ children, style }) => {
@@ -26,6 +26,7 @@ const FadeInView = ({ children, style }) => {
 
 const AnimatedScreen = () => {
   return (
+    <SafeAreaView style={{flex:1}} edges={Platform.OS==='ios'?['bottom','top']:[]} >
     <View
       style={{
         flex: 1,
@@ -48,6 +49,7 @@ const AnimatedScreen = () => {
         <NavBar/>
       </View>
     </View>
+    </SafeAreaView>
   );
 };
 

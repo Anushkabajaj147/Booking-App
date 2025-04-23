@@ -1,4 +1,4 @@
-import { View, Text ,Dimensions, TouchableOpacity,Linking, ScrollView} from 'react-native';
+import { View, Text ,Dimensions, TouchableOpacity,Linking, ScrollView, SafeAreaView, Platform} from 'react-native';
 import React, { useState } from 'react';
 import Lineargradient from 'react-native-linear-gradient';
 import Textinput, { TextInput } from 'react-native-paper';
@@ -172,6 +172,7 @@ const SignUp = () => {
      
  
   return (
+    <SafeAreaView style={{flex:1}} edges={Platform.OS==='ios'?['top','bottom']:[]}>
     <View style={{flex:1}}>
       <Lineargradient colors={['rgba(190, 122, 68,0.9)','rgba(219, 188, 160,0.9)','#fff']} start={{x:0,y:1}} end={{x:1,y:0}} style={{flex:1}}>
         <View style={{height:height*0.7,width:width-100,top:'12%',backgroundColor:'#fff',borderWidth:0.6,alignSelf:'center',borderRadius:20}}>
@@ -481,6 +482,7 @@ const SignUp = () => {
         
       </Lineargradient>
     </View>
+    </SafeAreaView>
   );
 };
 

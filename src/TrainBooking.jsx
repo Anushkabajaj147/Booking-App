@@ -1,5 +1,5 @@
-import { View, Text,Dimensions, TouchableOpacity,FlatList,ScrollView, Keyboard } from 'react-native';
-import React, { useState } from 'react';
+import { View, Text,Dimensions, TouchableOpacity,FlatList,ScrollView, Keyboard, SafeAreaView, Platform } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
 import HomeNavigate from './HomeNavigate';
 import LinearGradient from 'react-native-linear-gradient';
 import { RadioGroup } from 'react-native-radio-buttons-group';
@@ -8,6 +8,8 @@ import { Calendar } from 'react-native-calendars';
 import Icons from 'react-native-vector-icons/MaterialIcons';
 import moment from 'moment';
 import { TextInput } from 'react-native-paper';
+import { useFocusEffect } from '@react-navigation/native';
+import EncryptedStorage from 'react-native-encrypted-storage';
 
 
 const TrainBooking = () => {
@@ -37,6 +39,7 @@ const TrainBooking = () => {
  const[pnrNumber,setPnrNumber]=useState('');
  const[edit,setEdit]=useState(true);
  const[eyeshow,setEyeshow]=useState(false);
+ const[fetchData,setFetchData]=useState([]);
  const PnrFunction=(string)=>{
   if(string.length<=10)
   {
@@ -50,8 +53,43 @@ const TrainBooking = () => {
    Keyboard.dismiss(); 
    return;
   }
-
  };
+
+ useFocusEffect(
+  useCallback(()=>{
+    let dataget=true;
+    const fetchRecords=async()=>{
+      try{
+       const trainToken=await EncryptedStorage.getItem("settoken");
+       console.log('trainScreen',trainToken);
+       const headers={
+        'Authorization':`Bearer ${trainToken}`,
+       };
+       let response=await fetch('http://10.0.2.2:3000/api/trainrecords',{headers});
+       if(response.ok)
+       {
+        let data=await response.json();
+         if(dataget)
+         {
+          console.log('data is fetch');
+          setFetchData(data);
+         }
+       }
+       else{
+        console.log('error occur while getting response',response.status);
+       }
+      }
+      catch(err)
+      {
+          console.log('In Catch',err);
+      }
+    }
+    fetchRecords();
+    return()=>{
+      dataget=false;
+    }
+  },[])
+ );
   const trainRecords=[{id:'1',
                        label:'Book Train Tickets',
                        valueOne:'Train Ticket Booking',
@@ -61,6 +99,7 @@ const TrainBooking = () => {
                         label:'Check PNR Status',
                         valueOne:' PNR Status',
                         valueTwo:'(IRCTC Authorized e-ticketing)',}];
+
   const renderData=(selectedId)=>{
     setSelectedId(selectedId);
     setContainerRender(!containerRender);
@@ -318,16 +357,17 @@ const TrainBooking = () => {
     setEyeshow(!eyeshow);
   };
   return (
+    <SafeAreaView style={{flex:1}} edges={Platform.OS==='ios'?['top','bottom']:[]}>
     <View style={{flex:1,backgroundColor:'rgb(240, 240, 240)'}}>
-      <View style={{flexDirection:'row'}}>
+      <View style={{flexDirection:'row',top:height*0.03}}>
        <HomeNavigate/>
       </View>
-      <View style={{top:'5%',borderWidth:1,borderColor:'transparent',height:height*0.06,width:width-5}}>
+      <View style={{top:height*0.07,borderWidth:1,borderColor:'transparent',height:height*0.05,width:width-5}}>
     <Text style={{fontSize:20,alignSelf:'flex-start',color:'rgb(97, 125, 138)',fontWeight:'bold',left:'2%'}}>{radioRecordFirst}</Text>
     <Text style={{fontSize:17,alignSelf:'flex-end',color:'rgb(97, 125, 138)'}}>{radioRecordSec}</Text>
   </View>
-  <View style={{borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',height:height*0.00,width:width-20,alignSelf:'center',top:'6%'}}/>
-      <View style={{top:'6%'}}>
+  <View style={{borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',height:height*0.00,width:width-20,alignSelf:'center',top:height*0.08}}/>
+      <View style={{top:height*0.09}}>
         <RadioGroup
         radioButtons={trainRecords}
         selectedId={selectedId}
@@ -337,7 +377,7 @@ const TrainBooking = () => {
         labelStyle={{fontSize:18,fontWeight:'500',fontStyle:'italic',color:'rgba(31, 31, 31,0.9)'}}/>
 
       </View>
-      <LinearGradient colors={['rgba(190, 122, 68,0.9)','rgba(219, 188, 160,0.9)','#fff']} start={{x:0,y:1}} end={{x:1,y:0}} style={{top:'7%',height:height,width:width,borderWidth:1,borderColor:'rgba(31, 31, 31,0.9)',borderRadius:25}}>
+      <LinearGradient colors={['rgba(190, 122, 68,0.9)','rgba(219, 188, 160,0.9)','#fff']} start={{x:0,y:1}} end={{x:1,y:0}} style={{top:height*0.11,height:height,width:width,borderWidth:1,borderColor:'rgba(31, 31, 31,0.9)',borderRadius:25}}>
        {containerRender&&(<View style={{height:height*0.3,width:width-20,borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',top:'3%',alignSelf:'center',borderRadius:15,backgroundColor:'#fff'}}>
        <View style={{flexDirection:'row',height:height*0.15,width:width-20,borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',borderTopLeftRadius:15,borderTopRightRadius:15,justifyContent:'space-between'}}>
         <TouchableOpacity style={{borderWidth:0.5,borderColor:'rgba(31, 31, 31,0.9)',height:height*0.15,width:width-216,borderTopLeftRadius:15}} onPress={()=>setFirstDropdown(true)}> 
@@ -382,14 +422,14 @@ const TrainBooking = () => {
        {firstDropdown&&(
         <View style={{borderWidth:0.5,height:height*0.2,width:width-218,top:'8%',position:'absolute',left:'3%',alignSelf:'flex-start'}}>
           <FlatList
-          data={TrainData}
+          data={fetchData}
           renderItem={({item})=>{ return renderItem(item)}}/>
           </View>
       )}
        {secondDropdown&&(
         <View style={{borderWidth:0.5,height:height*0.2,width:width-218,top:'8%',position:'absolute',right:'3%',alignSelf:'flex-end'}}>
           <FlatList
-          data={TrainData}
+          data={fetchData}
           renderItem={({item})=>{ return renderSecItem(item)}}/>
           </View>
       )}
@@ -664,6 +704,7 @@ const TrainBooking = () => {
 
       </LinearGradient>
     </View>
+    </SafeAreaView>
   );
 };
 export default TrainBooking;

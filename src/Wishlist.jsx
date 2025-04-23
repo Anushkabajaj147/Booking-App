@@ -1,5 +1,5 @@
 import React, { useState,useEffect, useCallback } from 'react';
-import {View,Text, Dimensions,FlatList, TouchableOpacity,Image,Animated, SectionList} from 'react-native';
+import {View,Text, Dimensions,FlatList, TouchableOpacity,Image,Animated, SectionList, SafeAreaView, Platform, SafeAreaViewBase} from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialIcons';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import NavBar from './NavBar';
@@ -133,10 +133,10 @@ const Wishlist=()=>{
     if ( !wishlist||wishlist.length==0) {
         console.log('wishlist length:=',wishlist.length);
        return(
-    
+        <SafeAreaView style={{flex:1}} edges={Platform.OS==='ios'?['top','bottom']:[]}>
         <LinearGradient colors={['rgba(190, 122, 68,0.9)','rgba(219, 188, 160,0.9)','#fff']} start={{x:0,y:1}} end={{x:1,y:0}} style={{flex:1}}>
             <View style={{borderWidth:0.5,height:height*0.07,width:width,borderBottomLeftRadius:10,borderBottomRightRadius:10,flexDirection:'row',justifyContent:'flex-start',backgroundColor:'rgba(224, 224, 224,0.9)'}}>
-            <TouchableOpacity style={{borderWidth:1,borderColor:'transparent',height:height*0.05,width:width-430,alignContent:'center',alignItems:'center',alignSelf:'center',justifyContent:'center',left:'2%'}} onPress={()=>Navigation.navigate('OfferScreenExample')}><Icons name='keyboard-arrow-left' color={'rgba(31, 31, 31,0.9)'} size={35} onPress={()=>Navigation.navigate('OfferScreenExample')}/></TouchableOpacity>
+            <TouchableOpacity style={{borderWidth:1,borderColor:'transparent',height:height*0.05,width:width-430,alignContent:'center',alignItems:'center',alignSelf:'center',justifyContent:'center',left:'4%'}} onPress={()=>Navigation.navigate('OfferScreenExample')}><Icons name='keyboard-arrow-left' color={'rgba(31, 31, 31,0.9)'} size={35} onPress={()=>Navigation.navigate('OfferScreenExample')}/></TouchableOpacity>
              <View style={{borderWidth:1,borderColor:'transparent',height:height*0.05,width:width-230,alignContent:'center',alignItems:'center',alignSelf:'center',justifyContent:'center',left:'23%'}}><Text style={{fontSize:30,fontWeight:'bold',color:'rgba(31, 31, 31,0.9)',textAlign:'center'}}>Wishlist</Text></View>
             </View>
             <View style={{borderWidth:0.5,borderColor:'transparent',height:height*0.81,top:'1%',width:width-10,alignSelf:'center'}}>
@@ -147,24 +147,25 @@ const Wishlist=()=>{
             <View style={{borderWidth:0.5,borderColor:'transparent',borderBottomLeftRadius:10,borderBottomRightRadius:10,height:height*0.047,width:width-50,alignSelf:'center',alignItems:'center',justifyContent:'flex-start',alignContent:'center'}}><Text style={{fontSize:20,fontWeight:'500',borderColor:'rgba(31, 31, 31,0.9)',color:'rgba(131, 126, 126, 0.9)'}}>(Your Want to Add In Wishlist ) </Text></View>
             </View>
             </View>
-           <View style={{bottom:0,position:'absolute'}}>
+           <View style={{bottom:'0%',position:'absolute'}}>
             <NavBar/>
             </View>
         </LinearGradient>
-      
+        </SafeAreaView>
        );
         };
         
   // console.log('wishlist length:=>',wishlist);
      
     return(
+      <SafeAreaView style={{flex:1}} edges={Platform.OS==='ios'?['top','bottom']:[]}>
         <View style={{flex:1,backgroundColor:'rgba(240, 240, 240,0.9)'}}>
             <View style={{borderWidth:0.5,height:height*0.07,width:width,borderBottomLeftRadius:10,borderBottomRightRadius:10,flexDirection:'row',justifyContent:'flex-start',backgroundColor:'rgba(224, 224, 224,0.9)'}}>
             <TouchableOpacity style={{borderWidth:1,borderColor:'transparent',height:height*0.05,width:width-430,alignContent:'center',alignItems:'center',alignSelf:'center',justifyContent:'center',left:'2%'}} onPress={()=>Navigation.navigate('OfferScreenExample')}><Icons name='keyboard-arrow-left' color={'rgba(31, 31, 31,0.9)'} size={35} onPress={()=>Navigation.navigate('OfferScreenExample')}/></TouchableOpacity>
              <View style={{borderWidth:1,borderColor:'transparent',height:height*0.05,width:width-230,alignContent:'center',alignItems:'center',alignSelf:'center',justifyContent:'center',left:'23%'}}><Text style={{fontSize:30,fontWeight:'bold',color:'rgba(31, 31, 31,0.9)',textAlign:'center'}}>Wishlist</Text></View>
             </View>
-            <View style={{flexDirection:'row',borderWidth:0.5,borderColor:'rgba(131, 126, 126, 0.9)',height:height*0.8,width:width-10,top:'1%',left:'1%'}}>
-            <View style={{borderWidth: 0.5, borderColor: 'rgba(131, 126, 126, 0.9)', height: height * 0.80, width: width - 290, alignSelf: 'flex-start'}}>
+            <View style={{flexDirection:'row',borderWidth:0.5,borderColor:'rgba(240, 240, 240,0.9)',height:height*0.73,width:width-10,top:'4%',left:'1%'}}>
+            <View style={{borderWidth: 0.5, borderColor:'#000', height: height * 0.73, width: width - 290,alignSelf: 'flex-start'}}>
   <FlatList
   showsVerticalScrollIndicator={false} 
     data={wishlist}
@@ -218,7 +219,7 @@ const Wishlist=()=>{
   />
 </View>
 
-            <View style={{borderWidth: 0.5, borderColor: 'rgba(131, 126, 126, 0.9)', height: height * 0.80, width: width - 132, alignSelf: 'flex-end'}}>
+            <View style={{borderWidth: 0.5, borderColor: '#000', height: height * 0.73, width: width - 132, alignSelf: 'flex-end'}}>
   {showWishlist && (
     <View key={wishlist.hotelid} style={{borderWidth: 0.3, borderColor: 'rgba(31, 31, 31, 0.9)', borderRadius: 10, height: height * 0.45, width: width - 142, top: '20%', alignSelf: 'center', backgroundColor: '#fff', elevation: 24}}>
       
@@ -283,10 +284,11 @@ const Wishlist=()=>{
 </View>
 
             </View>
-            <View style={{bottom:0,position:'absolute'}}>
+            <View style={{bottom:'0%',position:'absolute'}}>
             <NavBar/>
             </View>
         </View>
+        </SafeAreaView>
     );
 };
 export default Wishlist;
